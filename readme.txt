@@ -16,9 +16,9 @@ Hides the Admin Bar in WordPress 3.1+.
 === What's next? ===
 If you like Hide Admin Bar, you will love our other, free WordPress products:
 
-* **[Better Admin Bar](https://betteradminbar.com/?utm_source=wp_video_popup&utm_medium=repository&utm_campaign=bab)** - The plugin to make your clients enjoy WordPress. It replaces the default admin bar to provide the best possible user experience when editing & navigating a website.
-* **[Page Builder Framework](https://wp-pagebuilderframework.com/?utm_source=bab&utm_medium=repository&utm_campaign=wpbf)** - A fast & minimalistic WordPress theme designed for the new WordPress era.
-* **[Ultimate Dashboard](https://ultimatedashboard.io/?utm_source=bab&utm_medium=repository&utm_campaign=udb)** - The #1 WordPress plugin to customize your WordPress dashboard and admin area.
+* **[Better Admin Bar](https://betteradminbar.com/?utm_source=hide_admin_bar&utm_medium=repository&utm_campaign=bab)** - The plugin to make your clients enjoy WordPress. It replaces the default admin bar to provide the best possible user experience when editing & navigating a website.
+* **[Page Builder Framework](https://wp-pagebuilderframework.com/?utm_source=hide_admin_bar&utm_medium=repository&utm_campaign=wpbf)** - A fast & minimalistic WordPress theme designed for the new WordPress era.
+* **[Ultimate Dashboard](https://ultimatedashboard.io/?utm_source=hide_admin_bar&utm_medium=repository&utm_campaign=udb)** - The #1 WordPress plugin to customize your WordPress dashboard and admin area.
 
 == Installation ==
 1. Download the hide-admin-bar.zip file to your computer.
