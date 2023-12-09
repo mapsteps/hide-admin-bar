@@ -8,10 +8,10 @@ Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Hide the Admin Bar in WordPress 3.1+
+Hide the Admin Bar in WordPress 3.1+.
 
 == Description ==
-Hides the Admin Bar in WordPress 3.1+, credits to <a href="http://yoast.com/">Yoast</a>, and <a href="https://petemall.com/">Pete Mall</a>. If you love this plugin, <A href="https://paypal.me/sdenike">buy me a cup of coffee</a>.
+Hides the Admin Bar in WordPress 3.1+.
 
 === What's next? ===
 If you like Better Admin Bar, you will love our other, free WordPress products:
@@ -28,7 +28,7 @@ If you like Better Admin Bar, you will love our other, free WordPress products:
 
 
 == Changelog ==
-= 0.4.7 - Dec 1st, 2023 = 
+= 0.4.8 - Dec 1st, 2023 = 
 * Confirmed working with WordPress 6.4.1
 * Fixed typo on changelog
 = 0.4.7 - Nov 2nd, 2022 = 
