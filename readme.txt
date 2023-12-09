@@ -3,7 +3,7 @@ Contributors: davidvongries, sdenike
 Tags: hide admin bar, admin, admin bar, hide, hidden, better admin bar
 Requires at least: 3.1
 Tested up to: 6.4.1
-Stable tag: 0.4.7
+Stable tag: 0.4.8
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ Hide the Admin Bar in WordPress 3.1+.
 Hides the Admin Bar in WordPress 3.1+.
 
 === What's next? ===
-If you like Better Admin Bar, you will love our other, free WordPress products:
+If you like Hide Admin Bar, you will love our other, free WordPress products:
 
 * **[Better Admin Bar](https://betteradminbar.com/?utm_source=wp_video_popup&utm_medium=repository&utm_campaign=bab)** - The plugin to make your clients enjoy WordPress. It replaces the default admin bar to provide the best possible user experience when editing & navigating a website.
 * **[Page Builder Framework](https://wp-pagebuilderframework.com/?utm_source=bab&utm_medium=repository&utm_campaign=wpbf)** - A fast & minimalistic WordPress theme designed for the new WordPress era.
