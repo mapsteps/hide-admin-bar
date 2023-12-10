@@ -3,7 +3,7 @@
  * Plugin Name: Hide Admin Bar
  * Plugin URI: https://wordpress.org/plugins/hide-admin-bar/
  * Description: Hides the Admin Bar in WordPress 3.1+.
- * Version: 0.4.8
+ * Version: 0.5
  * Requires at least: 3.1
  * Requires PHP: 5.6
  * Author: David Vongries
