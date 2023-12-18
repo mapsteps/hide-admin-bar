@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || die( "Can't access directly" );
 						<span class="version"><?php echo esc_html( HIDE_ADMIN_BAR_PLUGIN_VERSION ); ?></span>
 					</span>
 					<p class="subtitle">
-						<?php _e( 'The #1 plugin to hide WordPress Admin Bar.', 'hide-admin-bar' ); ?>
+						<?php _e( 'The #1 plugin to hide the WordPress Admin Bar.', 'hide-admin-bar' ); ?>
 					</p>
 				</div>
 
