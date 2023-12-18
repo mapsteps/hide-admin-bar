@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * Plugin Name: Hide Admin Bar
  * Plugin URI: https://wordpress.org/plugins/hide-admin-bar/
  * Description: Hides the Admin Bar in WordPress 3.1+.
@@ -13,21 +13,15 @@
  * @package Hide_Admin_Bar
  */
 
-/**
- * Hide admin bar preferences in the users profile.
- */
-function hide_admin_bar_prefs() {
+defined( 'ABSPATH' ) || die( "Can't access directly" );
 
-	?>
-	<style type="text/css">
-		.show-admin-bar {display: none;}
-	</style>
-	<?php
+// Helper constants.
+define( 'HIDE_ADMIN_BAR_PLUGIN_DIR', rtrim( plugin_dir_path( __FILE__ ), '/' ) );
+define( 'HIDE_ADMIN_BAR_PLUGIN_URL', rtrim( plugin_dir_url( __FILE__ ), '/' ) );
+define( 'HIDE_ADMIN_BAR_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+define( 'HIDE_ADMIN_BAR_PLUGIN_VERSION', '0.5' );
 
-}
-add_action( 'admin_print_scripts-profile.php', 'hide_admin_bar_prefs' );
+require __DIR__ . '/helpers.php';
+require __DIR__ . '/vendor/autoload.php';
 
-/**
- * Disable admin bar.
- */
-add_filter( 'show_admin_bar', '__return_false' );
+Mapsteps\HideAdminBar\Setup::init();

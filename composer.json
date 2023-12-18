@@ -1,0 +1,23 @@
+{
+	"name": "mapsteps/hide-admin-bar",
+	"description": "PHP tooling for Hide Admin Bar",
+	"type": "project",
+	"license": "GPLv3 or later",
+	"autoload": {
+		"psr-4": {
+			"Mapsteps\\HideAdminBar\\": ""
+		}
+	},
+	"authors": [
+		{
+			"name": "David Vongries"
+		}
+	],
+	"minimum-stability": "stable",
+	"require": {},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
+}

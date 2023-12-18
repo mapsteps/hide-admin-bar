@@ -1,0 +1,217 @@
+/**
+ * --------------------------------------------------
+ * Heatbox adjustment
+ * --------------------------------------------------
+ */
+/* exists to display the updated icon */
+.heatbox h2 {
+	position: relative;
+}
+
+/**
+ * ------------------------------
+ * Setting fields
+ * ------------------------------
+ */
+.setting-fields {
+	padding: 25px 15px;
+}
+
+.setting-fields.is-gapless {
+	padding: 0;
+}
+
+.setting-fields .label {
+	display: block;
+	font-weight: 600;
+}
+
+.setting-fields .description {
+	font-weight: 400;
+}
+
+hr {
+	margin: 20px 0;
+	border-top: 1px solid #eee;
+	border-bottom: 0;
+}
+
+.setting-fields .field:last-child {
+	margin-bottom: 0;
+}
+
+.setting-fields .field {
+	margin-bottom: 20px;
+}
+
+.field.is-horizontal {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.field.is-horizontal .field-label {
+	width: 30%;
+}
+
+.field.is-horizontal .field-body {
+	padding-left: 20px;
+	width: 70%;
+}
+
+/**
+ * --------------------------------------------------
+ * Featured products
+ * --------------------------------------------------
+ */
+.featured-products > h2 {
+	text-align: center;
+	margin-bottom: 50px;
+	font-size: 24px;
+}
+
+.featured-products .products {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.featured-products .products li {
+	width: 32%;
+}
+
+.featured-products .products .subheadline {
+	font-weight: 600;
+	margin-top: -6px;
+}
+
+.featured-products .products img {
+	max-width: 100%;
+}
+
+.featured-products .credit {
+	margin-top: 20px;
+	text-align: center;
+	opacity: 0.5;
+}
+
+/**
+ * --------------------------------------------------
+ * PRO features metabox
+ * --------------------------------------------------
+ */
+.hide-admin-bar-pro-metabox span.badge {
+	font-size: 50%;
+	padding: 4px 10px;
+	border-radius: 50px;
+	background: #6dbb7a;
+	color: #fff;
+}
+
+.hide-admin-bar-pro-metabox .intro {
+	padding: 20px;
+	background: #f1f1f1;
+	margin-bottom: 0;
+}
+
+.hide-admin-bar-pro-metabox ul li {
+	display: flex;
+	border-bottom: 1px solid #eee;
+	margin-bottom: 20px;
+}
+
+.hide-admin-bar-pro-metabox ul li:last-child {
+	border-bottom: none;
+	margin-bottom: 0;
+}
+
+.hide-admin-bar-pro-metabox .dashicons-yes {
+	margin-right: 12px;
+	color: #6dbb7a;
+	font-size: 28px;
+	margin-top: -3px;
+}
+
+.hide-admin-bar-pro-metabox h3 {
+	font-size: 18px;
+	margin-bottom: 8px;
+}
+
+/**
+ * --------------------------------------------------
+ * Saved status
+ * --------------------------------------------------
+ */
+.hide-admin-bar-settings .heatbox .saved-status.is-shown,
+.hide-admin-bar-settings .saved-status-bar.is-shown {
+	opacity: 1;
+}
+
+.hide-admin-bar-settings .heatbox .saved-status {
+	position: absolute;
+	right: 20px;
+	top: 50%;
+	padding: 10px;
+	height: 30px;
+	line-height: 10px;
+	font-size: 12px;
+	font-weight: 700;
+	opacity: 0;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	-webkit-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+	background: #47d87c;
+	border-radius: 4px;
+	color: #fff;
+}
+
+.hide-admin-bar-settings .saved-status-bar {
+	position: fixed;
+	left: 0;
+	top: 32px;
+	padding: 10px 0;
+	width: 100%;
+	color: #fff;
+	font-size: 16px;
+	text-align: center;
+	background-color: #47d87c;
+	opacity: 0;
+	z-index: 1; /* The bar should be on top of widget items. */
+	-webkit-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+
+/**
+ * --------------------------------------------------
+ * PRO items metabox
+ * --------------------------------------------------
+ */
+.hide-admin-bar-settings .pro-widgets-box {
+	margin-top: 20px;
+}
+
+.hide-admin-bar-settings .pro-widgets-box .pro-items {
+	margin-bottom: 20px;
+}
+
+/**
+ * --------------------------------------------------
+ * Role multiselect
+ * --------------------------------------------------
+ */
+.hide-admin-bar-settings .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+	display: flex;
+}
+
+.hide-admin-bar-settings .select2-label .select2-container {
+	width: 100% !important;
+	display: block;
+}
+
+@media (max-width: 991px) {
+	/** Featured products */
+	.featured-products .products li {
+		width: 100%;
+	}
+}
