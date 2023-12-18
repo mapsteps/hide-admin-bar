@@ -23,13 +23,11 @@ defined( 'ABSPATH' ) || die( "Can't access directly" );
 						<span class="version"><?php echo esc_html( HIDE_ADMIN_BAR_PLUGIN_VERSION ); ?></span>
 					</span>
 					<p class="subtitle">
-						<?php _e( 'The #1 plugin to hide WordPress default Admin Bar.', 'hide-admin-bar' ); ?>
+						<?php _e( 'The #1 plugin to hide WordPress Admin Bar.', 'hide-admin-bar' ); ?>
 					</p>
 				</div>
 
 				<div>
-					<img src="<?php echo esc_url( HIDE_ADMIN_BAR_PLUGIN_URL ); ?>/assets/images/logo.png"
-						 alt="Logo">
 				</div>
 
 			</div>
@@ -54,19 +52,7 @@ defined( 'ABSPATH' ) || die( "Can't access directly" );
 				<input type="hidden" name="hide_admin_bar_settings_nonce"
 					   value="<?= esc_attr( wp_create_nonce( HIDE_ADMIN_BAR_PLUGIN_DIR . '_settings_nonce' ) ) ?>">
 
-				<?php
-				require_once __DIR__ . '/metaboxes/settings-metabox.php';
-				require_once __DIR__ . '/metaboxes/pro-features-metabox.php';
-				?>
-
-				<div class="heatbox-cta-container is-attached">
-					<a href="https://betteradminbar.com/pricing/"
-					   class="button button-primary button-larger" target="_blank">
-						<strong style="font-weight: 700;">
-							<?php _e( 'Learn more', 'hide-admin-bar' ); ?>
-						</strong>
-					</a>
-				</div>
+				<?php require_once __DIR__ . '/metaboxes/settings-metabox.php' ?>
 
 				<p class="submit">
 					<button type="button" name="submit" id="submit"
@@ -135,7 +121,7 @@ defined( 'ABSPATH' ) || die( "Can't access directly" );
 				</li>
 			</ul>
 
-			<p class="credit"><?php _e( 'Made with ❤ in Aschaffenburg, Germany', 'hide-admin-bar' ); ?></p>
+			<p class="credit"><?php _e( 'Made with ❤ in Torsby, Sweden', 'hide-admin-bar' ); ?></p>
 
 		</div>
 
