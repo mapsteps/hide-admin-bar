@@ -2,8 +2,8 @@
 Contributors: davidvongries, sdenike
 Tags: hide admin bar, admin, admin bar, hide, hidden, better admin bar
 Requires at least: 3.1
-Tested up to: 6.5
-Stable tag: 1.0.1
+Tested up to: 6.8
+Stable tag: 1.0.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -30,6 +30,8 @@ If you like Hide Admin Bar, you will love our other, free WordPress products:
 
 
 == Changelog ==
+= 1.0.1 - June 05, 2025 = 
+* Tested up to WordPress 6.8
 = 1.0.1 - May 10, 2024 = 
 * Tested up to WordPress 6.5
 = 1.0 - December 18, 2023 = 
