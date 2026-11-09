@@ -68,30 +68,37 @@ $hide_admin_bar_products = array(
 
 				<div class="heatbox">
 					<h2><?php esc_html_e( 'Hide the admin bar', 'hide-admin-bar' ); ?></h2>
-					<div class="heatbox-content">
-						<fieldset>
-							<legend class="description"><?php esc_html_e( 'Hide the admin bar on the frontend of your website for:', 'hide-admin-bar' ); ?></legend>
-							<div class="setting-fields">
-								<div class="setting-field">
-									<label class="label checkbox-label">
-										<strong><?php esc_html_e( 'All users', 'hide-admin-bar' ); ?></strong>
-										<input type="checkbox" value="all" class="hide-admin-bar-all" <?php checked( $hide_admin_bar_all ); ?>>
-										<div class="indicator"></div>
-									</label>
-								</div>
-								<?php foreach ( $roles as $hide_admin_bar_role => $hide_admin_bar_role_name ) : ?>
-									<div class="setting-field hide-admin-bar-role">
-										<label class="label checkbox-label">
-											<?php echo esc_html( translate_user_role( $hide_admin_bar_role_name ) ); ?>
-											<input type="checkbox" value="<?php echo esc_attr( $hide_admin_bar_role ); ?>" <?php checked( $hide_admin_bar_all || in_array( $hide_admin_bar_role, $admin_bar_settings['remove_by_roles'], true ) ); ?> <?php disabled( $hide_admin_bar_all ); ?>>
-											<div class="indicator"></div>
-										</label>
+					<table class="form-table" role="presentation">
+						<tr>
+							<th scope="row">
+								<?php esc_html_e( 'Hide it for', 'hide-admin-bar' ); ?>
+								<p class="description"><?php esc_html_e( 'Hides the admin bar on the frontend of your website. Nothing selected: everyone sees it as usual.', 'hide-admin-bar' ); ?></p>
+							</th>
+							<td>
+								<fieldset>
+									<legend class="screen-reader-text"><?php esc_html_e( 'Hide it for', 'hide-admin-bar' ); ?></legend>
+									<div class="setting-fields">
+										<div class="setting-field">
+											<label class="label checkbox-label">
+												<?php esc_html_e( 'All users', 'hide-admin-bar' ); ?>
+												<input type="checkbox" value="all" class="hide-admin-bar-all" <?php checked( $hide_admin_bar_all ); ?>>
+												<div class="indicator"></div>
+											</label>
+										</div>
+										<?php foreach ( $roles as $hide_admin_bar_role => $hide_admin_bar_role_name ) : ?>
+											<div class="setting-field hide-admin-bar-role">
+												<label class="label checkbox-label">
+													<?php echo esc_html( translate_user_role( $hide_admin_bar_role_name ) ); ?>
+													<input type="checkbox" value="<?php echo esc_attr( $hide_admin_bar_role ); ?>" <?php checked( $hide_admin_bar_all || in_array( $hide_admin_bar_role, $admin_bar_settings['remove_by_roles'], true ) ); ?> <?php disabled( $hide_admin_bar_all ); ?>>
+													<div class="indicator"></div>
+												</label>
+											</div>
+										<?php endforeach; ?>
 									</div>
-								<?php endforeach; ?>
-							</div>
-						</fieldset>
-						<p class="description"><?php esc_html_e( 'With nothing selected, everyone sees the admin bar as usual. The admin bar inside the dashboard is not affected.', 'hide-admin-bar' ); ?></p>
-					</div>
+								</fieldset>
+							</td>
+						</tr>
+					</table>
 				</div>
 
 				<div class="heatbox-form-footer">

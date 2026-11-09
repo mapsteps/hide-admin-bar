@@ -107,7 +107,6 @@ class Setup {
 		}
 
 		wp_enqueue_style( 'heatbox', HIDE_ADMIN_BAR_PLUGIN_URL . '/assets/css/heatbox.css', array(), HIDE_ADMIN_BAR_PLUGIN_VERSION );
-		wp_enqueue_style( 'hide-admin-bar-settings', HIDE_ADMIN_BAR_PLUGIN_URL . '/assets/css/settings-page.css', array( 'heatbox' ), HIDE_ADMIN_BAR_PLUGIN_VERSION );
 
 		wp_enqueue_script( 'hide-admin-bar-settings', HIDE_ADMIN_BAR_PLUGIN_URL . '/assets/js/settings-page.js', array( 'jquery' ), HIDE_ADMIN_BAR_PLUGIN_VERSION, true );
 
