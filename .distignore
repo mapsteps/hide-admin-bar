@@ -1,0 +1,9 @@
+# Not shipped to WordPress.org
+.claude
+.distignore
+.git
+.gitignore
+composer.json
+composer.lock
+phpcs.xml
+vendor

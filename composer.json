@@ -1,23 +1,18 @@
 {
 	"name": "mapsteps/hide-admin-bar",
-	"description": "PHP tooling for Hide Admin Bar",
-	"type": "project",
-	"license": "GPLv3 or later",
-	"autoload": {
-		"psr-4": {
-			"Mapsteps\\HideAdminBar\\": ""
-		}
+	"description": "Hide Admin Bar – hide the WordPress admin bar for all users or specific user roles.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"require-dev": {
+		"wp-coding-standards/wpcs": "^3.1"
 	},
-	"authors": [
-		{
-			"name": "David Vongries"
-		}
-	],
-	"minimum-stability": "stable",
-	"require": {},
 	"config": {
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
+	},
+	"scripts": {
+		"lint": "phpcs --standard=phpcs.xml --exclude=Generic.Files.LineEndings .",
+		"fix": "phpcbf --standard=phpcs.xml --exclude=Generic.Files.LineEndings ."
 	}
 }
