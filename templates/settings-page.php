@@ -2,11 +2,37 @@
 /**
  * Settings page template.
  *
+ * Included from Setup::settings_page_output(), $admin_bar_settings holds the settings, $roles the site's roles.
+ *
  * @package Hide_Admin_Bar
  */
 
 defined( 'ABSPATH' ) || die( "Can't access directly" );
 
+$hide_admin_bar_all      = in_array( 'all', $admin_bar_settings['remove_by_roles'], true );
+$hide_admin_bar_products = array(
+	array(
+		'url'         => 'https://wordpress.org/plugins/better-admin-bar/',
+		'image'       => 'better-admin-bar.jpg',
+		'title'       => __( 'Better Admin Bar', 'hide-admin-bar' ),
+		'subheadline' => __( 'Replace the boring WordPress admin bar!', 'hide-admin-bar' ),
+		'text'        => __( 'Better Admin Bar is the plugin that makes your clients love WordPress. It drastically improves the user experience when working with WordPress and allows you to replace the boring WordPress admin bar with your own navigation panel.', 'hide-admin-bar' ),
+	),
+	array(
+		'url'         => 'https://wordpress.org/plugins/ultimate-dashboard/',
+		'image'       => 'ultimate-dashboard.jpg',
+		'title'       => __( 'Ultimate Dashboard', 'hide-admin-bar' ),
+		'subheadline' => __( 'Fully customize your WordPress dashboard.', 'hide-admin-bar' ),
+		'text'        => __( 'Ultimate Dashboard is the #1 plugin to create a custom WordPress dashboard for you and your clients. It also comes with multisite support which makes it the perfect plugin for your WaaS network.', 'hide-admin-bar' ),
+	),
+	array(
+		'url'         => 'https://wordpress.org/themes/page-builder-framework/',
+		'image'       => 'page-builder-framework.jpg',
+		'title'       => __( 'Page Builder Framework', 'hide-admin-bar' ),
+		'subheadline' => __( 'The only theme you\'ll ever need.', 'hide-admin-bar' ),
+		'text'        => __( 'With its minimalistic design the Page Builder Framework theme is the perfect foundation for your next project. Build blazing fast websites with a theme that is easy to use, lightweight & highly customizable.', 'hide-admin-bar' ),
+	),
+);
 ?>
 
 <div class="wrap heatbox-wrap hide-admin-bar-settings">
@@ -18,16 +44,11 @@ defined( 'ABSPATH' ) || die( "Can't access directly" );
 			<div class="logo-container">
 
 				<div>
-					<span class="title">
+					<h1 class="title">
 						<?php echo esc_html( get_admin_page_title() ); ?>
 						<span class="version"><?php echo esc_html( HIDE_ADMIN_BAR_PLUGIN_VERSION ); ?></span>
-					</span>
-					<p class="subtitle">
-						<?php _e( 'The #1 plugin to hide the WordPress Admin Bar.', 'hide-admin-bar' ); ?>
-					</p>
-				</div>
-
-				<div>
+					</h1>
+					<p class="subtitle"><?php esc_html_e( 'Hide the WordPress admin bar on your website.', 'hide-admin-bar' ); ?></p>
 				</div>
 
 			</div>
@@ -38,92 +59,83 @@ defined( 'ABSPATH' ) || die( "Can't access directly" );
 
 	<div class="heatbox-container heatbox-container-center heatbox-column-container">
 
-		<?php settings_fields( 'hide-admin-bar-settings-group' ); ?>
-
 		<div class="heatbox-main">
 
-			<!-- Faking H1 tag to place admin notices -->
-			<h1 style="display: none;"></h1>
+			<!-- WordPress places admin notices after this marker -->
+			<hr class="wp-header-end">
 
-			<form method="post" action="options.php" class="hide-admin-bar-settings-form">
+			<form method="post" class="hide-admin-bar-settings-form">
 
-				<div class="saved-status-bar"><?php _e( 'Your settings have been saved.', 'hide-admin-bar' ); ?></div>
+				<div class="heatbox">
+					<h2><?php esc_html_e( 'Hide the admin bar', 'hide-admin-bar' ); ?></h2>
+					<div class="heatbox-content">
+						<fieldset>
+							<legend class="description"><?php esc_html_e( 'Hide the admin bar on the frontend of your website for:', 'hide-admin-bar' ); ?></legend>
+							<div class="setting-fields">
+								<div class="setting-field">
+									<label class="label checkbox-label">
+										<strong><?php esc_html_e( 'All users', 'hide-admin-bar' ); ?></strong>
+										<input type="checkbox" value="all" class="hide-admin-bar-all" <?php checked( $hide_admin_bar_all ); ?>>
+										<div class="indicator"></div>
+									</label>
+								</div>
+								<?php foreach ( $roles as $hide_admin_bar_role => $hide_admin_bar_role_name ) : ?>
+									<div class="setting-field hide-admin-bar-role">
+										<label class="label checkbox-label">
+											<?php echo esc_html( translate_user_role( $hide_admin_bar_role_name ) ); ?>
+											<input type="checkbox" value="<?php echo esc_attr( $hide_admin_bar_role ); ?>" <?php checked( $hide_admin_bar_all || in_array( $hide_admin_bar_role, $admin_bar_settings['remove_by_roles'], true ) ); ?> <?php disabled( $hide_admin_bar_all ); ?>>
+											<div class="indicator"></div>
+										</label>
+									</div>
+								<?php endforeach; ?>
+							</div>
+						</fieldset>
+						<p class="description"><?php esc_html_e( 'With nothing selected, everyone sees the admin bar as usual. The admin bar inside the dashboard is not affected.', 'hide-admin-bar' ); ?></p>
+					</div>
+				</div>
 
-				<input type="hidden" name="hide_admin_bar_settings_nonce"
-					   value="<?= esc_attr( wp_create_nonce( HIDE_ADMIN_BAR_PLUGIN_DIR . '_settings_nonce' ) ) ?>">
-
-				<?php require_once __DIR__ . '/metaboxes/settings-metabox.php' ?>
-
-				<p class="submit">
-					<button type="button" name="submit" id="submit"
-							class="button button-primary button-larger save-general-settings" value="Save Changes">
-						<?php _e( 'Save Changes', 'hide-admin-bar' ); ?>
-					</button>
-				</p>
+				<div class="heatbox-form-footer">
+					<div>
+						<button type="submit" class="button button-primary button-larger hide-admin-bar-submit">
+							<?php esc_html_e( 'Save Changes', 'hide-admin-bar' ); ?>
+						</button>
+						<span class="heatbox-notice hide-admin-bar-notice" role="status"></span>
+					</div>
+				</div>
 
 			</form>
 
 		</div>
 
 		<div class="heatbox-sidebar">
-
-			<?php
-			require __DIR__ . '/metaboxes/review-metabox.php';
-			?>
-
+			<?php require __DIR__ . '/review.php'; ?>
 		</div>
 
 		<div class="heatbox-divider"></div>
 
+	</div>
 
-		<div class="heatbox-container heatbox-container-wide heatbox-container-center featured-products">
+	<div class="heatbox-container heatbox-container-wide heatbox-container-center heatbox-products">
 
-			<h2><?php _e( 'Check out our other free WordPress products!', 'hide-admin-bar' ); ?></h2>
+		<h2><?php esc_html_e( 'Check out our other free WordPress products!', 'hide-admin-bar' ); ?></h2>
 
-			<ul class="products">
+		<ul class="products">
+			<?php foreach ( $hide_admin_bar_products as $hide_admin_bar_product ) : ?>
 				<li class="heatbox">
-					<a href="https://wordpress.org/plugins/ultimate-dashboard/" target="_blank">
-						<img
-							src="<?php echo esc_url( HIDE_ADMIN_BAR_PLUGIN_URL ); ?>/assets/images/ultimate-dashboard.jpg">
+					<a href="<?php echo esc_url( $hide_admin_bar_product['url'] ); ?>" target="_blank" aria-hidden="true" tabindex="-1">
+						<img src="<?php echo esc_url( HIDE_ADMIN_BAR_PLUGIN_URL . '/assets/img/' . $hide_admin_bar_product['image'] ); ?>" alt="">
 					</a>
 					<div class="heatbox-content">
-						<h3><?php _e( 'Ultimate Dashboard', 'hide-admin-bar' ); ?></h3>
-						<p class="subheadline"><?php _e( 'Fully customize your WordPress Dashboard.', 'hide-admin-bar' ); ?></p>
-						<p><?php _e( 'Ultimate Dashboard is the #1 plugin to create a Custom WordPress Dashboard for you and your clients. It also comes with Multisite Support which makes it the perfect plugin for your WaaS network.', 'hide-admin-bar' ); ?></p>
-						<a href="https://wordpress.org/plugins/ultimate-dashboard/" target="_blank"
-						   class="button"><?php _e( 'View Features', 'hide-admin-bar' ); ?></a>
+						<h3><?php echo esc_html( $hide_admin_bar_product['title'] ); ?></h3>
+						<p class="subheadline"><?php echo esc_html( $hide_admin_bar_product['subheadline'] ); ?></p>
+						<p><?php echo esc_html( $hide_admin_bar_product['text'] ); ?></p>
+						<a href="<?php echo esc_url( $hide_admin_bar_product['url'] ); ?>" target="_blank" class="button"><?php esc_html_e( 'Learn more', 'hide-admin-bar' ); ?><span class="screen-reader-text"> <?php esc_html_e( '(opens in a new tab)', 'hide-admin-bar' ); ?></span></a>
 					</div>
 				</li>
-				<li class="heatbox">
-					<a href="https://wordpress.org/themes/page-builder-framework/" target="_blank">
-						<img
-							src="<?php echo esc_url( HIDE_ADMIN_BAR_PLUGIN_URL ); ?>/assets/images/page-builder-framework.jpg">
-					</a>
-					<div class="heatbox-content">
-						<h3><?php _e( 'Page Builder Framework', 'hide-admin-bar' ); ?></h3>
-						<p class="subheadline"><?php _e( 'The only Theme you\'ll ever need.', 'hide-admin-bar' ); ?></p>
-						<p class="description"><?php _e( 'With its minimalistic design the Page Builder Framework theme is the perfect foundation for your next project. Build blazing fast websites with a theme that is easy to use, lightweight & highly customizable.', 'hide-admin-bar' ); ?></p>
-						<a href="https://wordpress.org/themes/page-builder-framework/" target="_blank"
-						   class="button"><?php _e( 'View Features', 'hide-admin-bar' ); ?></a>
-					</div>
-				</li>
-				<li class="heatbox">
-					<a href="https://wordpress.org/plugins/responsive-youtube-vimeo-popup/" target="_blank">
-						<img src="<?php echo esc_url( HIDE_ADMIN_BAR_PLUGIN_URL ); ?>/assets/images/wp-video-popup.jpg">
-					</a>
-					<div class="heatbox-content">
-						<h3><?php _e( 'WP Video Popup', 'hide-admin-bar' ); ?></h3>
-						<p class="subheadline"><?php _e( 'The #1 Video Popup Plugin for WordPress.', 'hide-admin-bar' ); ?></p>
-						<p><?php _e( 'Add beautiful responsive YouTube & Vimeo video lightbox popups to any post, page or custom post type of website without sacrificing performance.', 'hide-admin-bar' ); ?></p>
-						<a href="https://wordpress.org/plugins/responsive-youtube-vimeo-popup/" target="_blank"
-						   class="button"><?php _e( 'View Features', 'hide-admin-bar' ); ?></a>
-					</div>
-				</li>
-			</ul>
+			<?php endforeach; ?>
+		</ul>
 
-			<p class="credit"><?php _e( 'Made with ❤ in Torsby, Sweden', 'hide-admin-bar' ); ?></p>
-
-		</div>
+		<p class="credit"><?php esc_html_e( 'Made with ❤ in Torsby, Sweden', 'hide-admin-bar' ); ?></p>
 
 	</div>
 

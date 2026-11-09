@@ -1,149 +1,100 @@
 (function ($) {
-	var doingAjax = false;
-	var saveButton;
-	var nonceField;
-	var savedStatusBar;
-	var settingFields;
-	var $removeAdminBar;
-	var adminBarRemovalRoles = [];
+	var data = window.HideAdminBar;
+	var form = document.querySelector(".hide-admin-bar-settings-form");
+
+	if (!form || !data) return;
+
+	var allField = form.querySelector(".hide-admin-bar-all");
+	var roleFields = form.querySelectorAll(".hide-admin-bar-role input");
+	var button = form.querySelector(".hide-admin-bar-submit");
+	var notice = form.querySelector(".hide-admin-bar-notice");
+	var isProcessing = false;
+	var noticeTimer;
 
 	/**
-	 * Call the main functions here.
+	 * "All users" checks & locks every role. Unchecking it brings back the previous selection.
 	 */
-	function init() {
-		saveButton = document.querySelector("button.save-general-settings");
-		nonceField = document.querySelector('[name="hide_admin_bar_settings_nonce"]');
+	function syncRoles() {
+		[].forEach.call(roleFields, function (field) {
+			if (allField.checked) {
+				field.setAttribute("data-was-checked", field.checked ? "1" : "");
+				field.checked = true;
+			} else if (field.disabled) {
+				field.checked = field.getAttribute("data-was-checked") === "1";
+			}
 
-		savedStatusBar = document.querySelector(
-			".hide-admin-bar-settings-form .saved-status-bar"
-		);
-
-		settingFields = document.querySelectorAll(
-			".hide-admin-bar-settings-form .general-setting-field"
-		);
-
-		saveButton.addEventListener("click", function (e) {
-			e.preventDefault();
-			saveSettings();
+			field.disabled = allField.checked;
 		});
-
-		setupAdminBarRemovalRoles();
 	}
 
-	function startLoading() {
-		saveButton.classList.add('is-loading');
-	};
+	/**
+	 * Show a message next to the save button for a few seconds.
+	 *
+	 * @param {string} message The message.
+	 * @param {boolean} success Whether it's a success message.
+	 */
+	function showNotice(message, success) {
+		clearTimeout(noticeTimer);
+		notice.textContent = message;
+		notice.classList.toggle("is-success", success);
+		notice.classList.toggle("is-error", !success);
+		notice.classList.add("is-shown");
 
-	function stopLoading() {
-		saveButton.classList.remove('is-loading');
-	};
+		noticeTimer = setTimeout(function () {
+			notice.classList.remove("is-shown");
+		}, 3000);
+	}
 
 	/**
-	 * Send ajax request to save the settings.
+	 * Save the settings.
+	 *
+	 * @param {Event} e The submit event.
 	 */
-	function saveSettings() {
-		if (doingAjax) return;
-		doingAjax = true;
-		startLoading();
+	function onSubmit(e) {
+		var roles = [];
 
-		var data = {};
+		e.preventDefault();
 
-		data.action = "hide_admin_bar_save_settings";
-		data.nonce = nonceField ? nonceField.value : "";
+		if (isProcessing) return;
+		isProcessing = true;
+		button.classList.add("is-loading");
 
-		[].slice.call(settingFields).forEach(function (field) {
-			if (field.type === "checkbox") {
-				data[field.name] = field.checked ? 1 : 0;
-			} else if (field.tagName.toLowerCase() === "select") {
-				if (field.name === "remove_by_roles[]") {
-					data[field.name] = adminBarRemovalRoles;
-				}
-			} else {
-				data[field.name] = field.value;
-			}
-		});
+		if (allField.checked) {
+			roles.push("all");
+		} else {
+			[].forEach.call(roleFields, function (field) {
+				if (field.checked) roles.push(field.value);
+			});
+		}
 
 		$.ajax({
-			url: ajaxurl,
-			type: "post",
-			dataType: "json",
-			data: data,
+			url: window.ajaxurl,
+			type: "POST",
+			data: {
+				action: "hide_admin_bar_save_settings",
+				nonce: data.nonce,
+				remove_by_roles: roles,
+			},
 		})
 			.done(function (r) {
-				switchSavedStatus("show");
+				var success = !!(r && r.success);
 
-				// We need some delay to give visual effect.
-				setTimeout(function () {
-					switchSavedStatus("hide");
-				}, 2500);
+				showNotice(success ? data.i18n.saved : data.i18n.error, success);
+			})
+			.fail(function (jqXHR) {
+				var message =
+					jqXHR.responseJSON && jqXHR.responseJSON.data
+						? String(jqXHR.responseJSON.data)
+						: data.i18n.error;
+
+				showNotice(message, false);
 			})
 			.always(function () {
-				stopLoading();
-				doingAjax = false;
+				isProcessing = false;
+				button.classList.remove("is-loading");
 			});
-	};
-
-	/**
-	 * Switch saved status in the metabox headers.
-	 *
-	 * @param {string} state Whether or not to show the "Saved" status.
-	 *                       Accepted values: "show" or "hide". Default is "show".
-	 */
-	function switchSavedStatus(state) {
-		if (state === "hide") {
-			savedStatusBar.classList.remove("is-shown");
-		} else {
-			savedStatusBar.classList.add("is-shown");
-		}
 	}
 
-	function setupAdminBarRemovalRoles() {
-		$removeAdminBar = $(".hide-admin-bar-settings .remove-admin-bar");
-
-		$removeAdminBar.select2();
-
-		setAdminBarRemovalRoles($removeAdminBar.select2("data"));
-
-		$removeAdminBar.on("select2:select", function (e) {
-			var roleObjects = $removeAdminBar.select2("data");
-			var newSelections = [];
-
-			if (e.params.data.id === "all") {
-				$removeAdminBar.val("all");
-				$removeAdminBar.trigger("change");
-			} else {
-				if (roleObjects.length) {
-					roleObjects.forEach(function (role) {
-						if (role.id !== "all") {
-							newSelections.push(role.id);
-						}
-					});
-
-					$removeAdminBar.val(newSelections);
-					$removeAdminBar.trigger("change");
-				}
-			}
-
-			// Use the modified list.
-			setAdminBarRemovalRoles($removeAdminBar.select2("data"));
-		});
-
-		$removeAdminBar.on("select2:unselect", function (e) {
-			setAdminBarRemovalRoles($removeAdminBar.select2("data"));
-		});
-	}
-
-	function setAdminBarRemovalRoles(roleObjects) {
-		adminBarRemovalRoles = [];
-
-		if (!roleObjects || !roleObjects.length) {
-			return;
-		}
-
-		roleObjects.forEach(function (role) {
-			adminBarRemovalRoles.push(role.id);
-		});
-	}
-
-	init();
+	allField.addEventListener("change", syncRoles);
+	form.addEventListener("submit", onSubmit);
 })(jQuery);

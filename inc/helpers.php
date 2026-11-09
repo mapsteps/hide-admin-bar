@@ -1,60 +1,65 @@
 <?php
 /**
- * Utility functions for Hide Admin Bar.
+ * Helper functions.
  *
  * @package Hide_Admin_Bar
  */
 
+defined( 'ABSPATH' ) || die( "Can't access directly" );
+
 /**
- * Get admin bar settings.
+ * Get the admin bar settings.
  *
- * @return array The admin bar settings.
+ * Before the settings are saved for the first time, the admin bar is hidden for everyone.
+ *
+ * @return array The settings. "remove_by_roles" holds role keys or "all".
  */
 function hide_admin_bar_get_admin_bar_settings() {
 
-	$saved_settings  = get_option( 'hab_admin_bar_settings', array() );
-	$remove_by_roles = array();
+	$saved_settings = get_option( 'hab_admin_bar_settings', array() );
 
-	$remove_by_roles[] = 'all';
-
-	if ( isset( $saved_settings['remove_by_roles'] ) ) {
-		$remove_by_roles = $saved_settings['remove_by_roles'] ? $saved_settings['remove_by_roles'] : array();
+	if ( ! is_array( $saved_settings ) || ! isset( $saved_settings['remove_by_roles'] ) ) {
+		return array( 'remove_by_roles' => array( 'all' ) );
 	}
 
 	return array(
-		'remove_by_roles' => $remove_by_roles,
+		'remove_by_roles' => is_array( $saved_settings['remove_by_roles'] ) ? $saved_settings['remove_by_roles'] : array(),
 	);
 
 }
 
 /**
- * Get pro features.
+ * Keep only "all" or existing role keys.
  *
- * @return array The pro features.
+ * @param mixed $roles The submitted roles.
+ *
+ * @return array The sanitized roles.
  */
-function hide_admin_bar_get_pro_features() {
+function hide_admin_bar_sanitize_roles( $roles ) {
 
-	return array(
-		'custom'        => array(
-			'text'        => __( 'Custom Controls', 'hide-admin-bar' ),
-			'description' => __( 'Add Custom Controls to your Quick Access Panel.', 'hide-admin-bar' ),
-		),
-		'page_builders' => array(
-			'text'        => __( 'Page Builder Support', 'hide-admin-bar' ),
-			'description' => __( 'Better Admin Bar PRO will automatically detect and launch the respective page builder if your page was created in Elementor, Brizy, Divi, Oxygen or Beaver Builder.', 'hide-admin-bar' ),
-		),
-		'cpt'           => array(
-			'text'        => __( 'Custom Post Type Support', 'hide-admin-bar' ),
-			'description' => __( 'Better Admin Bar PRO automatically detects registered post types and provides you with the necessary controls.', 'hide-admin-bar' ),
-		),
-		'multisite'     => array(
-			'text'        => __( 'Multisite Support', 'hide-admin-bar' ),
-			'description' => __( 'Better Admin Bar PRO is 100% multisite compatible. Configure the Quick Access Panel from the main site of your network and your changes will apply to all subsites.', 'hide-admin-bar' ),
-		),
-		'access'        => array(
-			'text'        => __( 'User Role Access', 'hide-admin-bar' ),
-			'description' => __( 'Restrict Quick Access Panel controls to specific User Roles with Better Admin Bar PRO.', 'hide-admin-bar' ),
-		),
-	);
+	if ( ! is_array( $roles ) ) {
+		return array();
+	}
+
+	$roles = array_map( 'sanitize_key', $roles );
+
+	if ( in_array( 'all', $roles, true ) ) {
+		return array( 'all' );
+	}
+
+	return array_values( array_intersect( $roles, array_keys( hide_admin_bar_get_roles() ) ) );
+
+}
+
+/**
+ * Get the user roles of the site.
+ *
+ * @return array Role names, keyed by role.
+ */
+function hide_admin_bar_get_roles() {
+
+	$roles = new WP_Roles();
+
+	return $roles->role_names;
 
 }
