@@ -4,7 +4,7 @@ Tags: hide admin bar, admin bar, toolbar, hide toolbar, user roles
 Requires at least: 3.5
 Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 1.0.2
+Stable tag: 2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
