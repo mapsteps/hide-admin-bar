@@ -12,13 +12,6 @@ defined( 'ABSPATH' ) || die( "Can't access directly" );
 $hide_admin_bar_all      = in_array( 'all', $admin_bar_settings['remove_by_roles'], true );
 $hide_admin_bar_products = array(
 	array(
-		'url'         => 'https://wordpress.org/plugins/better-admin-bar/',
-		'image'       => 'better-admin-bar.jpg',
-		'title'       => __( 'Better Admin Bar', 'hide-admin-bar' ),
-		'subheadline' => __( 'Replace the boring WordPress admin bar!', 'hide-admin-bar' ),
-		'text'        => __( 'Better Admin Bar is the plugin that makes your clients love WordPress. It drastically improves the user experience when working with WordPress and allows you to replace the boring WordPress admin bar with your own navigation panel.', 'hide-admin-bar' ),
-	),
-	array(
 		'url'         => 'https://wordpress.org/plugins/ultimate-dashboard/',
 		'image'       => 'ultimate-dashboard.jpg',
 		'title'       => __( 'Ultimate Dashboard', 'hide-admin-bar' ),
@@ -31,6 +24,13 @@ $hide_admin_bar_products = array(
 		'title'       => __( 'Page Builder Framework', 'hide-admin-bar' ),
 		'subheadline' => __( 'The only theme you\'ll ever need.', 'hide-admin-bar' ),
 		'text'        => __( 'With its minimalistic design the Page Builder Framework theme is the perfect foundation for your next project. Build blazing fast websites with a theme that is easy to use, lightweight & highly customizable.', 'hide-admin-bar' ),
+	),
+	array(
+		'url'         => 'https://wordpress.org/plugins/responsive-youtube-vimeo-popup/',
+		'image'       => 'wp-video-popup.jpg',
+		'title'       => __( 'WP Video Popup', 'hide-admin-bar' ),
+		'subheadline' => __( 'The #1 video popup plugin for WordPress.', 'hide-admin-bar' ),
+		'text'        => __( 'Add a YouTube, Vimeo or Rumble video popup to WordPress. Lightweight, privacy-friendly lightbox that works with any page builder.', 'hide-admin-bar' ),
 	),
 );
 ?>
@@ -49,6 +49,10 @@ $hide_admin_bar_products = array(
 						<span class="version"><?php echo esc_html( HIDE_ADMIN_BAR_PLUGIN_VERSION ); ?></span>
 					</h1>
 					<p class="subtitle"><?php esc_html_e( 'Hide the WordPress admin bar on your website.', 'hide-admin-bar' ); ?></p>
+				</div>
+
+				<div>
+					<img src="<?php echo esc_url( HIDE_ADMIN_BAR_PLUGIN_URL . '/assets/img/logo.png' ); ?>" alt="">
 				</div>
 
 			</div>
@@ -115,7 +119,10 @@ $hide_admin_bar_products = array(
 		</div>
 
 		<div class="heatbox-sidebar">
-			<?php require __DIR__ . '/review.php'; ?>
+			<?php
+			require __DIR__ . '/better-admin-bar.php';
+			require __DIR__ . '/review.php';
+			?>
 		</div>
 
 		<div class="heatbox-divider"></div>
