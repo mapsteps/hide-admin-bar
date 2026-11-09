@@ -41,7 +41,7 @@ function hide_admin_bar_sanitize_roles( $roles ) {
 		return array();
 	}
 
-	$roles = array_map( 'sanitize_key', $roles );
+	$roles = array_map( 'sanitize_text_field', array_filter( $roles, 'is_string' ) );
 
 	if ( in_array( 'all', $roles, true ) ) {
 		return array( 'all' );
