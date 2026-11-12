@@ -66,6 +66,7 @@ body {
 	--heatbox-radius-control: 8px;
 	--heatbox-radius-small: 4px;
 	--heatbox-control-height: 40px;
+	--heatbox-label-offset: 9px; /* Pushes a row label down to the middle of its field */
 	--heatbox-transition: 0.2s ease-in-out;
 }
 
@@ -135,6 +136,24 @@ body {
 
 	.heatbox-main {
 		margin-inline-end: 0;
+	}
+}
+
+/* Boxes side by side: <div class="heatbox-columns"><div class="heatbox">…</div><div class="heatbox">…</div></div> */
+.heatbox-columns {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--heatbox-gap);
+	margin-bottom: var(--heatbox-gap);
+}
+
+.heatbox-columns > .heatbox {
+	margin-bottom: 0;
+}
+
+@media screen and (max-width: 782px) {
+	.heatbox-columns {
+		grid-template-columns: 1fr;
 	}
 }
 
@@ -485,13 +504,15 @@ body {
 /* 7. Settings & form controls
    ========================================================================== */
 
+/* The bottom margin matches the label offset, so the space below the last row
+   equals the space above the first label (works with hidden rows too). */
 .heatbox .form-table {
-	margin: 0;
+	margin: 0 0 var(--heatbox-label-offset);
 }
 
 .heatbox .form-table th,
 .heatbox .form-table td {
-	padding: 24px var(--heatbox-box-padding);
+	padding: 16px var(--heatbox-box-padding);
 	vertical-align: top;
 }
 
@@ -499,9 +520,11 @@ body {
 	padding-inline-start: 0;
 }
 
-/* Labels line up with the middle of a field */
+/* Labels line up with the middle of a field.
+   A wider label column keeps descriptions from wrapping into tall rows. */
 .heatbox .form-table th {
-	padding-top: 33px;
+	width: 240px;
+	padding-top: calc(16px + var(--heatbox-label-offset));
 }
 
 /* Toggles line up with the row label */
@@ -520,18 +543,24 @@ body {
 }
 
 @media screen and (max-width: 782px) {
+	/* Labels sit above their field here, so no offset is needed */
+	.heatbox .form-table {
+		margin-bottom: 0;
+	}
+
 	.heatbox .form-table th {
-		padding-top: 24px;
+		width: auto;
+		padding-top: 16px;
 		padding-bottom: 0;
 	}
 
 	.heatbox .form-table td {
-		padding: 10px var(--heatbox-box-padding) 24px;
+		padding: 8px var(--heatbox-box-padding) 16px;
 	}
 }
 
 .heatbox .form-table th .description {
-	margin-top: 10px;
+	margin: 6px 0 0;
 }
 
 .heatbox .setting-fields .setting-field {
@@ -833,6 +862,48 @@ body {
 
 .heatbox-wrap .button-small {
 	border-radius: var(--heatbox-radius-small);
+}
+
+/* File picker: a field with a button like the others (the browser's "No file chosen" text stays) */
+.heatbox-wrap input[type="file"] {
+	box-sizing: border-box;
+	width: 100%;
+	min-height: var(--heatbox-control-height);
+	padding: 3px;
+	font-size: 13px;
+	color: var(--heatbox-text-muted);
+	background: var(--heatbox-surface);
+	border: 1px solid var(--heatbox-border);
+	border-radius: var(--heatbox-radius-control);
+	cursor: pointer;
+	transition: border-color var(--heatbox-transition);
+}
+
+.heatbox-wrap input[type="file"]:hover {
+	border-color: var(--heatbox-accent);
+}
+
+.heatbox-wrap input[type="file"]:focus-visible {
+	border-color: var(--heatbox-accent);
+	outline: 1px solid var(--heatbox-accent);
+}
+
+.heatbox-wrap input[type="file"]::file-selector-button {
+	min-height: 32px;
+	margin-inline-end: 12px;
+	padding: 0 14px;
+	font: inherit;
+	font-weight: 500;
+	color: var(--heatbox-accent);
+	background: var(--heatbox-accent-soft);
+	border: 1px solid var(--heatbox-accent-soft-border);
+	border-radius: var(--heatbox-radius-small);
+	cursor: pointer;
+	transition: background-color var(--heatbox-transition), border-color var(--heatbox-transition);
+}
+
+.heatbox-wrap input[type="file"]:hover::file-selector-button {
+	border-color: var(--heatbox-accent);
 }
 
 .heatbox-wrap .button-full {
